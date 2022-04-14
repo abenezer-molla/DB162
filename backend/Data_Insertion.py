@@ -97,10 +97,6 @@ session.add(link6)
 
 ###
 
-
-
-###
-
 #Houses class will recieve the data in the following format :-
 #Houses(house_address, number_of_bedrooms, number_of_bathrooms, area_in_squareMeter, office_id)
 
@@ -119,8 +115,6 @@ session.add(house3)
 session.add(house4)
 session.add(house5)
 session.add(house6)
-
-
 
 
 ###
@@ -149,7 +143,7 @@ session.add(listing6)
 #Price_Sum class will recieve the data in the following format :-
 #Price_Sum(price_sum)
 
-session.add(Price_Sum(0))
+session.add(Price_Sum(price_sum=0))
 
 session.commit()
 
@@ -163,7 +157,7 @@ def Transaction_Processor(transaction_object):
     '''
     This method will take inputs from the returned values of "Transaction_Objects function which I have imported from Table_Skeleton.py"
     Updates the value of price_sum(of Price_Sum class) and the value of isSold(from Listing_For_Sale class) only when the house is sold. 
-    
+
     '''
     try: 
         session.execute(insert(Sales), [transaction_object])

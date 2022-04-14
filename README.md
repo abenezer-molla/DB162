@@ -94,3 +94,16 @@ Tables
   - link_id(int)
   - office_id(int)
   - agent_id(int)
+
+####
+
+Optional cool features to explore if you are opening this with VS Code:-
+
+VS Code has a SQLite Explorer that you can install by following simple steps -
+
+- click on the "Extentions" button on the left side of VSCode
+- search "SQLite"
+- click install
+- Now, right-click on the db (moneyflow.db), then click "open database."
+- Now you should be seeing your database apearing at the bottom lefthand corner(under SQLITE EXPLORER)
+- there, you can click on each table listed within the db, and you will be able to view a beautiful table.
