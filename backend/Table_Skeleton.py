@@ -173,7 +173,7 @@ def Transaction_Objects():
     This function will return list_of_transaction_objects
     which is the a list dictionaries in which each dictionary will contain the important detials associated with the sold house. 
     The returned value from this function will be used as input for Transaction_Processor(inside Data_Insertion.py) to update value sin different Tables once the sold house is identified.
-    
+
     '''
 
     list_of_transaction_objects = [{'buyer_id': 6, 'agent_id': 2, 'house_id': 1, 'price': 1000000, 'date_sold': datetime(2022, 4, 14)},
