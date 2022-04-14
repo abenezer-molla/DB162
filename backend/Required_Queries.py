@@ -20,7 +20,7 @@ calendar_month = 4 # since this is the month I used the transactions were taking
 Index(Houses.office_id, Houses.house_id) #applications of composite indexing for faster retreival
 #reference --> https://user3141592.medium.com/single-vs-composite-indexes-in-relational-databases-58d0eb045cbe
 Index(Sales.date_sold, Sales.price)
-
+list_to_store_firstAnswer = []
 firstAnswer = session.query(
     Offices.office_address, 
     func.sum(Sales.price)).filter(
@@ -29,7 +29,11 @@ firstAnswer = session.query(
     Offices,Offices.office_id == Houses.office_id).group_by(
     Houses.office_id).order_by(func.sum(Sales.price).desc()).limit(5).all()
 
-print("firstAnswer = ", firstAnswer)
+for eachval in firstAnswer:
+    list_to_store_firstAnswer.append(eachval)
+
+
+print("firstAnswer_Top Five Offices with Most Sale = ", list_to_store_firstAnswer)
 
 '''
 #Question 2 - Find the top 5 estate agents who have sold the most (include their contact details and their sales details so that it is easy contact them and congratulate them).
@@ -37,12 +41,17 @@ print("firstAnswer = ", firstAnswer)
 '''
 
 Index(Sales.agent_id)
+list_to_store_secondAnswer = []
 secondAnswer = session.query(Agent.agent_firstName, Agent.agent_lastName, Agent.agent_email,
     Agent.agent_phoneNumber, func.sum(Sales.price)).filter(
     extract('year', Sales.date_sold) == calendar_year, extract('month', Sales.date_sold) == calendar_month).join(
     Agent,Agent.agent_id == Sales.agent_id).group_by(
     Sales.agent_id).order_by(func.sum(Sales.price).desc()).limit(5).all()
-print("secondAnswer = ", secondAnswer)
+
+for eachval in secondAnswer:
+    list_to_store_secondAnswer.append(eachval)
+
+print("secondAnswer_Top Five Agents Who Have Sold the Most = ", list_to_store_secondAnswer)
 
 '''
 #Question 3 - Calculate the commission that each estate agent must receive and store the results in a separate table. For all houses that were sold that month, calculate the average number of days that the house was on the market.
@@ -58,15 +67,14 @@ result_to_be_inserted = insert(Commission_Sum).from_select(names=['link_id', 'co
 session.execute(result_to_be_inserted)
 session.commit()
 
-thirdAnswer_a = session.query(Commission_Sum).all()
+thirdAnswer_commissionTable = session.query(Commission_Sum).all()
 
-thirdAnswer_b = session.query(func.avg(func.julianday(Sales.date_sold) - func.julianday(Listing_For_Sale.listing_date))).filter(
+thirdAnswer_averageDay = session.query(func.avg(func.julianday(Sales.date_sold) - func.julianday(Listing_For_Sale.listing_date))).filter(
     extract('year', Sales.date_sold) == calendar_year, extract('month', Sales.date_sold) == calendar_month).join(
     Listing_For_Sale, Listing_For_Sale.house_id == Sales.house_id).first()
 
-
-print("thirdAnswer_a = ", thirdAnswer_a)
-print("thirdAnswer_b = ", thirdAnswer_b)
+print("thirdAnswer_commissionTable = ", thirdAnswer_commissionTable)
+print("thirdAnswer_averageDay = ", thirdAnswer_averageDay)
 
 
 '''
@@ -77,7 +85,7 @@ print("thirdAnswer_b = ", thirdAnswer_b)
 fourthAnswer = session.query(func.avg(Sales.price)).filter(
     extract('year', Sales.date_sold) == calendar_year, extract('month', Sales.date_sold) == calendar_month).first()
 
-print("query4", fourthAnswer)
+print("fourthAnswer_Average Selling Price = ", fourthAnswer)
 
 
 
