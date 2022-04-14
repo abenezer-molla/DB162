@@ -1,5 +1,24 @@
 # DB162
 
+Steps to run this program:
+
+MacOS >
+
+Requirements
+
+- pip3 install sqlalchemy
+- python_version = "3.9"
+
+Steps:
+
+1.  Open terminal (if you are using Visual Studuo Code, the keyboard shortcut will be "ctrl~")
+2.  change directory to DB162(if it is not opened in this directory already) - type > cd DB162
+3.  chnage directory to backend folder - type > cd backend
+4.  initilize virtual environment - type > pipenv shell
+5.  run the Table_Skeleton.py file - type > python Table_Skeleton.py
+6.  run the Data_Insertion.py file - type > python Data_Insertion.py
+7.  run the Required_Queries.py file - type > python Required_Insertion.py
+
 Tables
 
 - Agent
@@ -19,7 +38,6 @@ Tables
   - transactor_lastName(string)
   - transactor_email(string)
   - transactor_phoneNumber(big_int)
-  -
 
 - Offices
   Columns
@@ -39,12 +57,14 @@ Tables
 
 - Sales
   Columns
+
   - sale_id (int) - PRIMARY KEY
   - buyer_id (int) - ForeignKey('Transactor.transactor_id')
   - agent_id (int) - ForeignKey('Agent.agent_id')
   - house_id (int) - ForeignKey('Houses.house_id')
   - price (int)
   - date_sold (Date)
+
 - Price_Sum
   Columns
 

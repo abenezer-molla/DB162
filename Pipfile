@@ -3,14 +3,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
-[packages]
-flask-sqlalchemy = "*"
-flask-migrate = "*"
-flask-cors = "*"
-flask-restx = "*"
-flask = "*"
-python-decouple = "*"
-
 [dev-packages]
 
 [requires]
