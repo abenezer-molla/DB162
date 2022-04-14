@@ -2,14 +2,15 @@ from sqlalchemy import create_engine, Column, Integer,BigInteger, ForeignKey, Da
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, column_property
 from sqlalchemy.sql import case
+from datetime import datetime
 
-engine = create_engine('sqlite:///moneyflow.db')
+engine = create_engine('sqlite:///moneyflow.db') # my databse that will contain all the Tables belows(defined in class)
 engine.connect()
 
 Base = declarative_base()
 
 
-class Transactor(Base):
+class Transactor(Base): # defining Transactor table
 
     __tablename__ = "Transactor"
 
@@ -28,7 +29,7 @@ class Transactor(Base):
 
         
 
-class Agent(Base):
+class Agent(Base): # defining Agent table
 
     __tablename__ = "Agent"
 
@@ -45,7 +46,7 @@ class Agent(Base):
         self.agent_email = agent_email
         self.agent_phoneNumber = agent_phoneNumber
 
-class Offices(Base):
+class Offices(Base): # defining Offices table
 
     __tablename__ = "Offices"
 
@@ -55,7 +56,8 @@ class Offices(Base):
     def __init__(self, office_address):
         self.office_address = office_address
 
-class Houses(Base):
+
+class Houses(Base): # defining Houses table
 
     __tablename__ = "Houses"
 
@@ -76,7 +78,7 @@ class Houses(Base):
 
 
 
-class Sales(Base):
+class Sales(Base): # defining Sales table
     __tablename__='Sales'
 
     sale_id = Column(Integer, primary_key=True, unique=True)
@@ -104,20 +106,18 @@ class Sales(Base):
         self.sales_commission = sales_commission
 
 
-class Price_Sum(Base):
+class Price_Sum(Base):  # defining Price_Sum table
 
     __tablename__ = 'Price_Sum' 
 
     price_id=Column(Integer,primary_key=True, unique=True)
     price_sum=Column(Integer)
 
-    def __init__(self, price_id, price_sum):
-        
-        self.price_id = price_id
+    def __init__(self,price_sum):
         self.price_sum = price_sum
 
 
-class Commission_Sum(Base):
+class Commission_Sum(Base): # defining Commission_Sum table
 
     __tablename__ = "Commission_Sum"
 
@@ -132,7 +132,7 @@ class Commission_Sum(Base):
         self.commision = commision
 
 
-class Listing_For_Sale(Base):
+class Listing_For_Sale(Base): # defining Listing_For_Sale table
 
     __tablename__ = "Listing_For_Sale"
 
@@ -154,7 +154,7 @@ class Listing_For_Sale(Base):
         self.isSold = isSold
 
 
-class Agent_to_Office_Link(Base):
+class Agent_to_Office_Link(Base):  # defining Agent_Office_Link table
 
     __tablename__ = "Agent_Office_Link"
 
@@ -168,9 +168,25 @@ class Agent_to_Office_Link(Base):
         self.office_id = office_id
         self.agent_id = agent_id
 
+def Transaction_Objects(): 
+    '''
+    This function will return list_of_transaction_objects
+    which is the a list dictionaries in which each dictionary will contain the important detials associated with the sold house. 
+    The returned value from this function will be used as input for Transaction_Processor(inside Data_Insertion.py) to update value sin different Tables once the sold house is identified.
+    
+    '''
+
+    list_of_transaction_objects = [{'buyer_id': 6, 'agent_id': 2, 'house_id': 1, 'price': 1000000, 'date_sold': datetime(2022, 4, 14)},
+                        {'buyer_id': 4, 'agent_id': 1, 'house_id': 2, 'price': 999999, 'date_sold': datetime(2022, 4, 13)},
+                        {'buyer_id': 2, 'agent_id': 4, 'house_id': 6, 'price': 1200000, 'date_sold': datetime(2022, 4, 12)},
+                        {'buyer_id': 3, 'agent_id': 3, 'house_id': 5, 'price': 8000000, 'date_sold': datetime(2022, 4, 11)},
+                        {'buyer_id': 4, 'agent_id': 5, 'house_id': 4, 'price': 950000, 'date_sold': datetime(2022, 4, 10)},
+                        {'buyer_id': 1, 'agent_id': 6, 'house_id': 3, 'price': 867890, 'date_sold': datetime(2022, 4, 9)}
+                        ]
+
+    return list_of_transaction_objects
 
 Base.metadata.create_all(bind=engine)
-
 
 Session = sessionmaker(bind=engine)
 session = Session()
