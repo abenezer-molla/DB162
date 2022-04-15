@@ -18,6 +18,7 @@ Steps:
 5.  run the Table_Skeleton.py file - type > python Table_Skeleton.py
 6.  run the Data_Insertion.py file - type > python Data_Insertion.py
 7.  run the Required_Queries.py file - type > python Required_Insertion.py
+8.  run the test.py file - type > python test.py
 
 Tables
 

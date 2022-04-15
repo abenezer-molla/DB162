@@ -1,5 +1,5 @@
 '''
-All FILE EDIT
+Test code for the Tables Created! 
 
 '''
 from datetime import datetime
@@ -8,7 +8,6 @@ sys.path.insert(0, os.getcwd())
 
 import unittest
 from Table_Skeleton import Houses, Agent, Commission_Sum, Agent_to_Office_Link, Transactor, Offices, Price_Sum, Sales, Listing_For_Sale, engine
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -22,7 +21,6 @@ class TestQuery(unittest.TestCase):
 ### 1 testing Agent Table
 
     def Add_Into_Agent(self): # checks if the user inserts additional column data
-
         try:    
             self.agent_inst = Agent("Iron", "Man", "ironman@gmail.com", 3138907896)
             session.add(self.agent_inst)
@@ -238,8 +236,8 @@ class TestQuery(unittest.TestCase):
             self.Add_House_Table(self)
         self.assertTrue(context.exception, "The data added does not comply with the Table instantiation defined rules!")
         
-
 ### tearing down the database
+
     def deleteDB(self):
         Houses.__table__.drop(engine)
         Agent.__table__.drop(engine)
@@ -251,6 +249,5 @@ class TestQuery(unittest.TestCase):
         Listing_For_Sale.__table__.drop(engine)
         Commission_Sum.__table__.drop(engine)
         
-
 if __name__ == '__main__':
     unittest.main()
