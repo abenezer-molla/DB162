@@ -27,6 +27,26 @@ class TestBlock(unittest.TestCase):
         except TypeError:
             raise Exception('The data added does not comply with the Table instantiation defined rules!')
 
+
+    def test_Agent_Table(self): # checks if data is properly added 
+        expected1 = "Tron"
+        expected2 = "Man"
+        expected3 = "ironman@gmail.com"
+        expected4 = 3138907896
+        result_we_got1 = self.session.query(Agent.agent_firstName).all()
+        result_we_got2 = self.session.query(Agent.agent_lastName).all()
+        result_we_got3 = self.session.query(Agent.agent_email).all()
+        result_we_got4 = self.session.query(Agent.agent_phoneNumber).all()
+        if expected1 in result_we_got1:
+            self.assertEqual(expected1, result_we_got1)
+        if expected2 in result_we_got2:
+            self.assertEqual(expected2, result_we_got2)
+        if expected3 in result_we_got3:
+            self.assertEqual(expected3, result_we_got3)
+        if expected4 in result_we_got4:
+            self.assertEqual(expected4, result_we_got4)
+
+
     def test_Add_Transactor_Table(self): # checks if the user inserts additional column data
         try:
             self.trans_inst = Transactor("Bete", "Asrat", "bete@gmail.com", 2128909879)
@@ -63,11 +83,12 @@ class TestBlock(unittest.TestCase):
     def test_Add_House_Table(self): # checks if the user inserts additional column data
         try:
             self.house_inst = Houses(95104, 2, 4, 600, 2)
+            
             self.session.add(self.house_inst)
             self.session.commit()
         except TypeError:
             raise Exception('The data added does not comply with the Table instantiation defined rules!')
 
-        
+
 if __name__ == '__main__':
     unittest.main()
