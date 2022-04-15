@@ -6,7 +6,7 @@ MacOS >
 
 Requirements
 
-- pip3 install sqlalchemy
+- inside backnd directory - pipenv install sqlalchemy
 - python_version = "3.9"
 
 Steps:
@@ -14,6 +14,9 @@ Steps:
 1.  Open terminal (if you are using Visual Studuo Code, the keyboard shortcut will be "ctrl~")
 2.  change directory to DB162(if it is not opened in this directory already) - type > cd DB162
 3.  chnage directory to backend folder - type > cd backend
+
+- here - pipenv install sqlalchemy
+
 4.  initilize virtual environment - type > pipenv shell
 5.  run the Table_Skeleton.py file - type > python Table_Skeleton.py
 6.  run the Data_Insertion.py file - type > python Data_Insertion.py
