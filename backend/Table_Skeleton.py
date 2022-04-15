@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer,BigInteger, ForeignKey, Date, String, Boolean
+from sqlalchemy import create_engine, Column, Text, Integer,BigInteger, ForeignKey, Date, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, column_property
 from sqlalchemy.sql import case
@@ -15,9 +15,9 @@ class Transactor(Base): # defining Transactor table
     __tablename__ = "Transactor"
 
     transactor_id= Column(Integer,primary_key=True,unique=True)
-    transactor_firstName=Column(String(25),nullable=False)
-    transactor_lastName=Column(String(80),nullable=False)
-    transactor_email=Column(String(),nullable=False)
+    transactor_firstName=Column(Text,nullable=False)
+    transactor_lastName=Column(Text,nullable=False)
+    transactor_email=Column(Text,nullable=False)
     transactor_phoneNumber=Column(BigInteger,nullable=False)
 
     def __init__(self, transactor_firstName, transactor_lastName, transactor_email, transactor_phoneNumber):
@@ -159,8 +159,8 @@ class Agent_to_Office_Link(Base):  # defining Agent_Office_Link table
     __tablename__ = "Agent_Office_Link"
 
     link_id=Column(Integer,primary_key=True,unique=True)
-    office_id=Column(Integer,nullable=False)
-    agent_id=Column(Integer,nullable=False)
+    office_id=Column(Integer)
+    agent_id=Column(Integer)
     
 
     def __init__(self, office_id, agent_id):
